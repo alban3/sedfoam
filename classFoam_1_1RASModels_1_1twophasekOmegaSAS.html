@@ -41,6 +41,7 @@
                 <li><a href="tutorials_laminar.html">Laminar flow tutorials</a></li>
                 <li><a href="tutorials_RAS.html">Reynolds-averaged flow tutorials</a></li>
                 <li><a href="tutorials_LES.html">LES tutorials</a></li>
+                <li><a href="tutorials_DyM.html">Dynamic mesh tutorials</a></li>
                 <li><a href="inputs.html">Input Parameters</a></li>
               </ol>
             </li>
@@ -116,6 +117,56 @@
             Cs          0.11;
             kappa       0.41;
             zeta2       3.51;
+            sigmaPhi    2.0/3.0;
+            C           2;
+
+            // Delta must be specified for SAS e.g.
+            delta cubeRootVol;
+
+            cubeRootVolCoeffs
+            {}
+        }</pre><p>This file is in the</p><p><a name="Description"></a></p><p>References:</p><pre>    k-omega SST-SAS original model:
+        Egorov, Y. (2008).
+        Development and Application of SST-SAS Turbulence Model in the DESIDER Project
+        Advances in Hybrid RANS-LES Modelling
+
+    k-omega original model:
+            Wilcox, D. C. (1998).
+            Turbulence modeling for CFD
+            (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
+
+        Two-phase adaptation:
+            Amoudry, L. O. (2014).
+            Extension of k-omega turbulence closure to two-phase sediment
+            transport modelling: Application to oscillatory sheet flows.
+            Advances in Water Ressources, 72, 110-121</pre><p>The default model coefficients are</p><pre>        twophasekOmegaSASCoeffs
+        {
+        // Default kOmega Wilcox (1998) coefficients
+            Cmu              0.09;
+            alphaOmega       0.52;
+            betaOmega        0.072;
+            C3om             0.35;
+            C4om             1.0;
+            KE2              1.0;
+            KE4              1.0;
+            alphaKomega      0.5;
+            alphaOmegaOmega  0.5;
+            Clim             0.0;
+            sigmad           0.0
+            popeCorrection   false;
+        }</pre><p>For the revisited version of the model from Wilcox (2006), model coefficients should be modified following:</p><pre>        twophasekOmegaSASCoeffs
+        {
+        // Default kOmega Wilcox (2006) coefficients
+            betaOmega        0.0708;
+            alphaKomega      0.6;
+            Clim             0.875;
+            sigmad           0.125
+            popeCorrection   True (only for 3D cases)
+
+        // Default SAS coefficients
+            Cs          0.11;
+            kappa       0.41;
+            zeta2       1.0;
             sigmaPhi    2.0/3.0;
             C           2;
 
